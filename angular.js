@@ -706,6 +706,11 @@ if (msie < 9) {
   };
 } else {
   nodeName_ = function(element) {
+    // HACK! The plugin object's properties are cleared at some point during
+    // Angular's compile phase. This is a workaround.
+    if (!element.nodeName && element.toString() === "MAPAdaptivePlayerJS") {
+        return "OBJECT";
+    }
     return element.nodeName ? element.nodeName : element[0].nodeName;
   };
 }
