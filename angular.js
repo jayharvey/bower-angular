@@ -696,6 +696,11 @@ function makeMap(str) {
 
 
 function nodeName_(element) {
+  // HACK: The plugin object's properties are cleared at some point during
+  // Angular's compile phase. This is a workaround.
+  if (!element.nodeName && element.toString() === "MAPAdaptivePlayerJS") {
+      return "object";
+  }
   return lowercase(element.nodeName || (element[0] && element[0].nodeName));
 }
 
